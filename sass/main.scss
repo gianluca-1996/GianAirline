@@ -1,3 +1,37 @@
-h1{
-    color: red;
+header{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    height: 100px;
+
+    nav{
+        width: 50%;
+
+        dl{
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            padding-right: 100px;
+            padding-top: 30px;
+            
+
+            dt{
+                a{
+                    text-decoration: none;
+                    color: gold;
+                }
+            }
+        }
+    }
+}
+
+main{
+    div{
+        height: 500px;
+        width: 100%;
+    }
+
+    #avion1, #avion2, #avion3{
+        height: 500px;
+    }
 }
