@@ -26,12 +26,96 @@ header{
 }
 
 main{
-    div{
+    #carrousel{
         height: 500px;
         width: 100%;
     }
 
     #avion1, #avion2, #avion3{
         height: 500px;
+    }
+
+    #buscador-vuelos{
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        height: 100px;
+        width: 60%;
+        margin-left: 20%;
+        margin-right: 20%;
+        border: 2px solid gold;
+        border-radius: 10px;
+        background-color: azure;
+        position: relative;
+        top: -40px;
+
+
+        #origen{
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            padding: 5px;
+        }
+
+        #destino{
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            padding: 5px;
+        }
+
+        #pasajeros{
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            padding: 5px;
+        }
+
+        #buscar{
+            padding: 30px;
+        }
+    }
+
+    .separador{
+        margin-top: 100px;
+        margin-left: 10%;
+        margin-right: 10%;
+        margin-bottom: 50px;
+    }
+
+    #seccion-info{
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        width: 70%;
+        margin-left: 15%;
+        margin-right: 15%;
+
+        .img-info{
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            width: 250px;
+        }
+    }
+
+    .vatm-titulo{
+        text-align: center;
+    }
+
+    #contenedor-vt{
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
+        height: 250px;
+        width: 80;
+        margin-left: 10%;
+        margin-right: 10%;
+
+        .imagen{
+            height: 250px;
+            width: 290px;
+            border-radius: 10px;
+        }
     }
 }
