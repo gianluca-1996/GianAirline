@@ -1,0 +1,189 @@
+header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  height: 100px;
+}
+header nav {
+  width: 50%;
+}
+header nav dl {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding-right: 100px;
+  padding-top: 30px;
+}
+header nav dl dt a {
+  text-decoration: none;
+  color: gold;
+}
+
+main #carrousel {
+  height: 500px;
+  width: 100%;
+}
+main #avion1, main #avion2, main #avion3 {
+  height: 500px;
+}
+main #buscador-vuelos {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  height: 100px;
+  width: 60%;
+  margin-left: 20%;
+  margin-right: 20%;
+  border: 2px solid gold;
+  border-radius: 10px;
+  background-color: azure;
+  position: relative;
+  top: -40px;
+}
+main #buscador-vuelos #origen {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 5px;
+}
+main #buscador-vuelos #destino {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 5px;
+}
+main #buscador-vuelos #pasajeros {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 5px;
+}
+main #buscador-vuelos .buscar {
+  padding: 30px;
+}
+main .separador {
+  margin-top: 100px;
+  margin-left: 10%;
+  margin-right: 10%;
+  margin-bottom: 50px;
+}
+main #seccion-info {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 70%;
+  margin-left: 15%;
+  margin-right: 15%;
+}
+main #seccion-info .img-info {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 250px;
+}
+main .vatm-titulo {
+  text-align: center;
+}
+main #contenedor-vt {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  height: 250px;
+  width: 80%;
+  margin-left: 10%;
+  margin-right: 10%;
+  margin-top: 3%;
+  /* Efecto Grow */
+}
+main #contenedor-vt .imagen {
+  height: 250px;
+  width: 290px;
+  border-radius: 10px;
+}
+main #contenedor-vt .hvr-grow {
+  display: inline-block;
+  vertical-align: middle;
+  transform: perspective(1px) translateZ(0);
+  box-shadow: 0 0 1px rgba(0, 0, 0, 0);
+  transition-duration: 0.3s;
+  transition-property: transform;
+}
+main #contenedor-vt .hvr-grow:hover, main #contenedor-vt .hvr-grow:focus, main #contenedor-vt .hvr-grow:active {
+  transform: scale(1.1);
+}
+main #at-titulo {
+  text-align: center;
+}
+main #qu-titulo {
+  text-align: center;
+  width: 60%;
+  margin-left: 20%;
+  margin-right: 20%;
+}
+main #form-cont {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 40%;
+  margin-left: 30%;
+  margin-right: 30%;
+}
+main #form-cont form {
+  width: 70%;
+}
+main footer {
+  background-color: black;
+  margin-top: 5%;
+  height: 500px;
+}
+main footer #foot-1 {
+  position: relative;
+  top: 50px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  color: white;
+  width: 80%;
+  margin-left: 10%;
+  margin-right: 10%;
+  height: 200px;
+}
+main footer #foot-2 {
+  width: 80%;
+  margin-left: 10%;
+  margin-right: 10%;
+  margin-top: 50px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+main footer #foot-2 #foot-2-redes {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 200px;
+}
+main footer #foot-2 #foot-2-botones {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 400px;
+}
+main footer #foot-3 {
+  height: 200px;
+}
+main footer #foot-3 #foot-3-titulo {
+  text-align: center;
+  position: relative;
+  top: 150px;
+  color: white;
+}
+main footer ul {
+  list-style: none;
+  position: relative;
+  left: -30px;
+}
+main footer ul a {
+  color: white;
+  text-decoration: none;
+}/*# sourceMappingURL=main.css.map */
