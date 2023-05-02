@@ -71,7 +71,7 @@ main{
             padding: 5px;
         }
 
-        #buscar{
+        .buscar{
             padding: 30px;
         }
     }
@@ -108,14 +108,120 @@ main{
         flex-direction: row;
         justify-content: space-around;
         height: 250px;
-        width: 80;
+        width: 80%;
         margin-left: 10%;
         margin-right: 10%;
+        margin-top: 3%;
 
         .imagen{
             height: 250px;
             width: 290px;
             border-radius: 10px;
+        }
+
+        /* Efecto Grow */
+        .hvr-grow {
+            display: inline-block;
+            vertical-align: middle;
+            -webkit-transform: perspective(1px) translateZ(0);
+            transform: perspective(1px) translateZ(0);
+            box-shadow: 0 0 1px rgba(0, 0, 0, 0);
+            -webkit-transition-duration: 0.3s;
+            transition-duration: 0.3s;
+            -webkit-transition-property: transform;
+            transition-property: transform;
+        }
+        .hvr-grow:hover, .hvr-grow:focus, .hvr-grow:active {
+            -webkit-transform: scale(1.1);
+            transform: scale(1.1);
+        }
+    }
+
+    #at-titulo{
+        text-align: center;
+    }
+
+    #qu-titulo{
+        text-align: center;
+        width: 60%;
+        margin-left: 20%;
+        margin-right: 20%;
+    }
+
+    #form-cont{
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        width: 40%;
+        margin-left: 30%;
+        margin-right: 30%;
+
+        form{
+            width: 70%;
+        }
+    }
+
+    footer{
+        background-color: black;
+        margin-top: 5%;
+        height: 500px;
+
+        #foot-1{
+            position: relative;
+            top: 50px;
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            color: white;
+            width: 80%;
+            margin-left: 10%;
+            margin-right: 10%;
+            height: 200px;
+        }
+
+        #foot-2{
+            width: 80%;
+            margin-left: 10%;
+            margin-right: 10%;
+            margin-top: 50px;
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+
+            #foot-2-redes{
+                display: flex;
+                flex-direction: row;
+                justify-content: space-between;
+                width: 200px;
+            }
+
+            #foot-2-botones{
+                display: flex;
+                flex-direction: row;
+                justify-content: space-between;
+                width: 400px;
+            }
+        }
+
+        #foot-3{
+            height: 200px;
+            
+            #foot-3-titulo{
+                text-align: center;
+                position: relative;
+                top: 150px;
+                color: white;
+            }
+        }
+
+        ul{
+            list-style: none;
+            position: relative;
+            left: -30px;
+            a{
+                color: white;
+                text-decoration: none;
+            }
         }
     }
 }
