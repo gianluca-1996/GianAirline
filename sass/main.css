@@ -2,7 +2,13 @@ header {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  height: 100px;
+  height: 90px;
+}
+header img {
+  height: 70px;
+  width: 200px;
+  margin-top: 10px;
+  margin-left: 10px;
 }
 header nav {
   width: 50%;
@@ -131,12 +137,13 @@ main #form-cont {
 main #form-cont form {
   width: 70%;
 }
-main footer {
+
+footer {
   background-color: black;
   margin-top: 5%;
   height: 500px;
 }
-main footer #foot-1 {
+footer #foot-1 {
   position: relative;
   top: 50px;
   display: flex;
@@ -148,7 +155,7 @@ main footer #foot-1 {
   margin-right: 10%;
   height: 200px;
 }
-main footer #foot-2 {
+footer #foot-2 {
   width: 80%;
   margin-left: 10%;
   margin-right: 10%;
@@ -157,33 +164,33 @@ main footer #foot-2 {
   flex-direction: row;
   justify-content: space-between;
 }
-main footer #foot-2 #foot-2-redes {
+footer #foot-2 #foot-2-redes {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   width: 200px;
 }
-main footer #foot-2 #foot-2-botones {
+footer #foot-2 #foot-2-botones {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   width: 400px;
 }
-main footer #foot-3 {
+footer #foot-3 {
   height: 200px;
 }
-main footer #foot-3 #foot-3-titulo {
+footer #foot-3 #foot-3-titulo {
   text-align: center;
   position: relative;
   top: 150px;
   color: white;
 }
-main footer ul {
+footer ul {
   list-style: none;
   position: relative;
   left: -30px;
 }
-main footer ul a {
+footer ul a {
   color: white;
   text-decoration: none;
 }/*# sourceMappingURL=main.css.map */
