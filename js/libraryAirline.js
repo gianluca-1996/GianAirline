@@ -29,10 +29,10 @@ function seleccionarPasajeros(){
 //FUNCION QUE PERMITE SELECCIONAR LA FECHA DE PARTIDA
 function seleccionarFechaVuelo(){
     let fechaIda, formato
-    formato = /[0-3]\d\/[0-1]\d\/[2][3-4]/ //EXPRESION REGULAR QUE CONTROLA EL FORMATO DE LA FECHA INGRESADA
+    formato = /[0-3]\d\/[0-1]\d\/[2]\d/ //EXPRESION REGULAR QUE CONTROLA EL FORMATO DE LA FECHA INGRESADA
 
     do {
-        fechaIda = prompt(`Ingresar la fecha de vuelo en formato (dd/mm/aa)`)
+        fechaIda = prompt(`Ingresar la fecha de vuelo en formato (dd/mm/aa)\nPor ejemplo: 06/11/23`)
     } while ( !( formato.test(fechaIda) ) );
 
     return fechaIda
