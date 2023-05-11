@@ -1,42 +1,13 @@
 /** FUNCION PARA SELECCIONAR AEROPUERTO DESTINO/ORIGEN */
 function seleccionarAeropuerto(modo, origen){
-    let opcion, aeropuerto, salida 
+    let aeropuerto, salida 
     salida = true
     
     do {    
-        opcion = parseInt(prompt(`Seleccione el aeropuerto de ${modo}:\n1 - BARILOCHE\n2 - CORDOBA\n3 - JUJUY`))
-        switch(opcion){
-            case 1:
-                if(origen == "BARILOCHE")
-                {
-                    alert("El aeropuerto de destino no puede ser el mismo que el de origen. Intentelo nuevamente")
-                    break
-                }
-                aeropuerto = "BARILOCHE"
-                salida = false
-                break
-            case 2:
-                if(origen == "CORDOBA")
-                {
-                    alert("El aeropuerto de destino no puede ser el mismo que el de origen. Intentelo nuevamente")
-                    break
-                }
-                aeropuerto = "CORDOBA"
-                salida = false
-                break
-            case 3:
-                if(origen == "JUJUY")
-                {
-                    alert("El aeropuerto de destino no puede ser el mismo que el de origen. Intentelo nuevamente")
-                    break
-                }
-                aeropuerto = "JUJUY"
-                salida = false
-                break
-            default:
-                alert('Debe seleccionar un aeropuerto válido')
-                break
-        }
+        aeropuerto = prompt(`Introduzca el aeropuerto de ${modo}`)
+        
+        if(aeropuerto != origen)
+            salida = false
     } while (salida);
 
     return aeropuerto
