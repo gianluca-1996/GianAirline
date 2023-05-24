@@ -9,6 +9,7 @@ class Reserva{
     equipaje;
     coberturaMedica;
 
+    //PERMITE SELECCIONAR AL USUARIO EL AEROPUERTO DE ORIGEN
     seleccionarOrigen(){
         let aeropuerto, salida
         salida = true
@@ -25,7 +26,7 @@ class Reserva{
             }
         } while (salida);
     }
-
+    //PERMITE SELECCIONAR AL USUARIO EL AEROPUERTO DE DESTINO
     seleccionarDestino(){
         let salida = true
         let aeropuerto
@@ -42,41 +43,41 @@ class Reserva{
             }
         } while (salida);
     }
-
+    //PERMITE SELECCIONAR AL USUARIO LA CANTIDAD DE PASAJEROS QUE SERAN INCLUIDOS EN LA RESERVA
     seleccionarPasajeros(){
         let cantidadPasajeros
         let pasajeros = new Array()
 
         do {
-            cantidadPasajeros = parseInt(prompt("Ingrese la cantidad de pasajeros - (Tarifa base por pasajero $7500)"))
+            cantidadPasajeros = parseInt(prompt("Ingrese la cantidad de pasajeros - (Tarifa base por pasajero $7500) - Max: 4 pasajeros"))
             
-        } while (cantidadPasajeros <= 0);
+        } while ( (cantidadPasajeros <= 0) || (isNaN(cantidadPasajeros)) || (cantidadPasajeros > 4) );
 
-        for(let i = 0; i < cantidadPasajeros; i++){
-            pasajeros[i] = new Pasajero()   
+        for(let i = 0; i < cantidadPasajeros; i++){   
+            pasajeros.push(new Pasajero())
         }
 
         this.pasajeros = pasajeros
         this.tarifa = 7500 * pasajeros.length
     }
 
-    //METODO QUE PERMITE SELECCIONAR LA FECHA DE PARTIDA
+    //PERMITE SELECCIONAR AL USUARIO LA FECHA DE PARTIDA
     seleccionarFechaVuelo(){
         let fechaIda, salida, partesFecha, dia, mes, anio
         salida = true
 
         do {
-            fechaIda = new String(prompt(`Ingresar la fecha de vuelo en formato (dd/mm/aa)\nPor ejemplo: 06/11/23`))
+            fechaIda = new String(prompt(`Ingresar la fecha de vuelo en formato (dd/mm/aa)\nPor ejemplo: 06/11/2023`))
             partesFecha = fechaIda.split("/")
             dia = parseInt(partesFecha[0])
 
-            if(dia <= 31){
+            if(dia <= 31 && dia > 0){
                 mes = parseInt(partesFecha[1])
 
-                if(mes <= 12){
+                if(mes <= 12 && dia > 0){
                     anio = parseInt(partesFecha[2])
 
-                    if( (anio == 23) || (anio == 24) ){
+                    if( (anio == 2023) || (anio == 2024) ){
                         salida = false
                     }
                 }
@@ -84,10 +85,10 @@ class Reserva{
 
         } while ( salida );
 
-        this.fecha = fechaIda
+        this.fecha = new Date(anio, mes, dia)
     }
  
-    //METODO QUE PERMITE SELECCIONAR LA HORA DEL VUELO
+    //PERMITE SELECCIONAR AL USUARIO LA HORA DEL VUELO
     seleccionarHoraVuelo(){
         let hora
 
@@ -115,7 +116,7 @@ class Reserva{
         }
     }
 
-    //METODO QUE PERMITE SELECCIONAR EL TIPO DE EQUIPAJE
+    //PERMITE SELECCIONAR AL USUARIO EL TIPO DE EQUIPAJE
     seleccionarEquipaje(){
         let equipaje
 
@@ -143,7 +144,7 @@ class Reserva{
         }
     }
 
-    //METODO QUE PERMITE SELECCIONAR COBERTURA MEDICA
+    //PERMITE SELECCIONAR AL USUARIO COBERTURA MEDICA
     seleccionarCobertura(){
         let coberturaMedica
         
@@ -163,11 +164,12 @@ class Reserva{
         }
     }
 
+    //PERMITE INGRESAR LOS DATOS PERSONALES DE LOS PASAJEROS 
     ingresarDatosPasajeros(){
         let cantidad = 1
         let nombre, apellido, dni
 
-        for(let objeto of this.pasajeros){
+        this.pasajeros.forEach(objeto => {
             alert(`Ingreso de datos del pasajero ${cantidad}`)
             nombre = prompt("Ingresar nombre:")
             apellido = prompt("Ingresar apellido:")
@@ -176,22 +178,20 @@ class Reserva{
             objeto.setApellido(apellido)
             objeto.setDni(dni)
             cantidad++
-        }
+        });
     }
 
+    //GENERA UN ID UNICO PARA LA RESERVA
     generarId(){
-        let min, max
-        min = Math.ceil(10000)
-        max = Math.floor(20000)
-        this.id = Math.floor(Math.random() * (max - min) + min)
+        this.id = Math.round(Math.random() * 10000)
     }
 
-    //METODO QUE MUESTRA UN RESUMEN DE VUELO SEGUN LOS DATOS ENVIADOS COMO PARAMETRO
+    //MUESTRA UN RESUMEN DE LA RESERVA
     mostrarResumen(){
         let cantidad = 1
 
         alert(`************RESUMEN DE SU VUELO************\n\nAeropuerto origen: ${this.origen}\nAeropuerto destino: ${this.destino}\nCantidad de pasajeros: ${this.pasajeros.length}
-        \nFecha de vuelo: ${this.fecha}\nHora de vuelo: ${this.hora}\nEquipaje: ${this.equipaje}\nCobertura médica: ${this.coberturaMedica}\nID reserva: ${this.id}`)
+        \nFecha de vuelo: ${this.fecha.toLocaleDateString()}\nHora de vuelo: ${this.hora}\nEquipaje: ${this.equipaje}\nCobertura médica: ${this.coberturaMedica}\nID reserva: ${this.id}`)
         for(let objeto of this.pasajeros){
             alert(`PASAJERO ${cantidad}\nNombre: ${objeto.getNombre()}\nApellido: ${objeto.getApellido()}\nDni: ${objeto.getDni()}`)
             cantidad++
