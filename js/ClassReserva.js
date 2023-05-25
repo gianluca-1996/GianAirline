@@ -1,52 +1,53 @@
 class Reserva{
     id
-    origen;
-    destino;
-    fecha;
-    hora;
-    pasajeros;
-    tarifa;
-    equipaje;
-    coberturaMedica;
+    origen
+    destino
+    fecha
+    hora
+    pasajeros = new Array()
+    tarifa = 0
+    equipaje
+    coberturaMedica
 
     //PERMITE SELECCIONAR AL USUARIO EL AEROPUERTO DE ORIGEN
     seleccionarOrigen(){
-        let aeropuerto, salida
-        salida = true
+        let opcionesAeropuerto = Aeropuerto.cargarAeropuertos()
+        let opcion, origen
+        let condicion = true
 
         do {    
-            aeropuerto = prompt("INTRODUZCA EL AEROPUERTO DE ORIGEN")
-        
-            if(aeropuerto != ""){
-                this.origen = aeropuerto
-                salida =false
+            opcion = prompt(`INTRODUZCA EL AEROPUERTO DE ORIGEN:\nEZEIZA - $7.000\nBARILOCHE - $15.000\nJORGE NEWBERY - $8.000\nCATARATAS DEL IGUAZÚ - $6.000\nEL PALOMAR - $5.000`)
+            origen = opcionesAeropuerto.find((aeropuerto) => aeropuerto.nombre == opcion.toUpperCase())
+            
+            if(origen != undefined){
+                this.origen = origen
+                this.tarifa += origen.tarifaBase
+                condicion = false
             }
-            else{
-                alert("ERROR AL INTRODUCIR EL AEROPUERTO DE ORIGEN")
-            }
-        } while (salida);
+        } while (condicion);
     }
     //PERMITE SELECCIONAR AL USUARIO EL AEROPUERTO DE DESTINO
     seleccionarDestino(){
-        let salida = true
-        let aeropuerto
-        
-        do {    
-            aeropuerto = prompt("INTRODUZCA EL AEROPUERTO DE DESTINO")
+        let opcionesAeropuerto = Aeropuerto.cargarAeropuertos()
+        let opcion, destino
+        let condicion = true
 
-            if( (aeropuerto != this.origen) && (aeropuerto != "") ){
-                this.destino = aeropuerto
-                salida = false
+        do {    
+            opcion = prompt("INTRODUZCA EL AEROPUERTO DE DESTINO:\nEZEIZA - $7.000\nBARILOCHE - $15.000\nJORGE NEWBERY - $8.000\nCATARATAS DEL IGUAZÚ - $6.000\nEL PALOMAR - $5.000")
+            destino = opcionesAeropuerto.find((aeropuerto) => aeropuerto.nombre == opcion.toUpperCase())
+            
+            if(destino != undefined){
+                if(destino.nombre != this.origen.nombre){
+                    this.destino = destino
+                    this.tarifa += destino.tarifaBase
+                    condicion = false
+                }
             }
-            else{
-                alert("ERROR AL INTRODUCIR EL AEROPUERTO DE DESTINO")
-            }
-        } while (salida);
+        } while (condicion);
     }
     //PERMITE SELECCIONAR AL USUARIO LA CANTIDAD DE PASAJEROS QUE SERAN INCLUIDOS EN LA RESERVA
     seleccionarPasajeros(){
         let cantidadPasajeros
-        let pasajeros = new Array()
 
         do {
             cantidadPasajeros = parseInt(prompt("Ingrese la cantidad de pasajeros - (Tarifa base por pasajero $7500) - Max: 4 pasajeros"))
@@ -54,11 +55,10 @@ class Reserva{
         } while ( (cantidadPasajeros <= 0) || (isNaN(cantidadPasajeros)) || (cantidadPasajeros > 4) );
 
         for(let i = 0; i < cantidadPasajeros; i++){   
-            pasajeros.push(new Pasajero())
+            this.pasajeros.push(new Pasajero())
         }
 
-        this.pasajeros = pasajeros
-        this.tarifa = 7500 * pasajeros.length
+        this.tarifa += 7500 * cantidadPasajeros
     }
 
     //PERMITE SELECCIONAR AL USUARIO LA FECHA DE PARTIDA
@@ -67,25 +67,24 @@ class Reserva{
         salida = true
 
         do {
-            fechaIda = new String(prompt(`Ingresar la fecha de vuelo en formato (dd/mm/aa)\nPor ejemplo: 06/11/2023`))
+            fechaIda = new String(prompt(`Ingresar la fecha de vuelo en formato (dd/mm/aa)\nPor ejemplo: 6/11/2023`))
             partesFecha = fechaIda.split("/")
             dia = parseInt(partesFecha[0])
 
             if(dia <= 31 && dia > 0){
-                mes = parseInt(partesFecha[1])
+                mes = parseInt(partesFecha[1]) - 1 //SE RESTA 1 PORQUE EL OBJETO DATE CUENTA LOS MESES A PARTIR DEL 0. POR EJEMPLO: ENERO - 0 / FEBRERO - 1
 
                 if(mes <= 12 && dia > 0){
                     anio = parseInt(partesFecha[2])
 
                     if( (anio == 2023) || (anio == 2024) ){
+                        this.fecha = new Date(anio, mes, dia)
                         salida = false
                     }
                 }
             }
 
         } while ( salida );
-
-        this.fecha = new Date(anio, mes, dia)
     }
  
     //PERMITE SELECCIONAR AL USUARIO LA HORA DEL VUELO
@@ -164,7 +163,7 @@ class Reserva{
         }
     }
 
-    //PERMITE INGRESAR LOS DATOS PERSONALES DE LOS PASAJEROS 
+    //PERMITE INGRESAR LOS DATOS PERSONALES DE LOS PASAJEROS. EN FUTURAS ENTREGAS SE HARA UN CONTROL SOBRE LOS DATOS INGRESADOS
     ingresarDatosPasajeros(){
         let cantidad = 1
         let nombre, apellido, dni
@@ -190,7 +189,7 @@ class Reserva{
     mostrarResumen(){
         let cantidad = 1
 
-        alert(`************RESUMEN DE SU VUELO************\n\nAeropuerto origen: ${this.origen}\nAeropuerto destino: ${this.destino}\nCantidad de pasajeros: ${this.pasajeros.length}
+        alert(`************RESUMEN DE SU VUELO************\n\nAeropuerto de origen: ${this.origen.toString()}\nAeropuerto de destino: ${this.destino.toString()}\nCantidad de pasajeros: ${this.pasajeros.length}
         \nFecha de vuelo: ${this.fecha.toLocaleDateString()}\nHora de vuelo: ${this.hora}\nEquipaje: ${this.equipaje}\nCobertura médica: ${this.coberturaMedica}\nID reserva: ${this.id}`)
         for(let objeto of this.pasajeros){
             alert(`PASAJERO ${cantidad}\nNombre: ${objeto.getNombre()}\nApellido: ${objeto.getApellido()}\nDni: ${objeto.getDni()}`)
