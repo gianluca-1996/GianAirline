@@ -1,7 +1,7 @@
 let reserva, checkInputs , fechaVuelo, mesActual, diaActual, fechaActual, divTotal, contenedor2,
     coberturaMedica, equipaje, horaVuelo, total, formVuelo, inputFecha, fechaMin, formulariosPasajeros,
     divResumen, aeropuertos, aeropuertoOrigen, aeropuertoDestino, cantidadPasajeros, btnEnviarDatos,
-    hidden, btnConfirmarReserva, pasajeros, formPasajero
+    hidden, btnConfirmarReserva, pasajeros, formPasajero, operacionFinalizada
 
 formulariosPasajeros = document.getElementById("formularios-pasajeros")
 formPasajero = document.getElementById("form-pasajero")
@@ -43,11 +43,15 @@ fechaMin.value = `${fechaActual.getFullYear()}-${mesActual}-${diaActual}`
 inputFecha.setAttributeNode(fechaMin)
 
 //MOSTRAR RESUMEN HASTA EL MOMENTO
-divResumen.innerHTML = `<h4>Origen: ${aeropuertoOrigen.nombre}</h4>
-<h4>Destino: ${aeropuertoDestino.nombre}</h4>
-<h4>Pasajeros: ${cantidadPasajeros}</h4>`
+divResumen.innerHTML = `<div><h4>Origen</h4></div>
+<div>${aeropuertoOrigen.nombre}</div>
+<div><h4>Destino</h4></div>
+<div>${aeropuertoDestino.nombre}</div>
+<div><h4>Pasajeros</h4></div>
+<div>${cantidadPasajeros}</div>`
 
-divTotal.innerHTML = `<h4>Subotal: $${total}</h4>`
+
+divTotal.innerHTML = `<h4>Subtotal: $${total}</h4>`
 
 //EVENTO CAPTURADO AL ENVIAR EL FORMULARIO form-vuelo
 btnEnviarDatos.addEventListener("click", () => {
@@ -78,7 +82,7 @@ btnEnviarDatos.addEventListener("click", () => {
     }
     
 
-    
+    //CREA LOS FORMULARIOS SEGUN LA CANTIDAD DE PASAJEROS
     for(let i = 1; i <= cantidadPasajeros; i++){
         formPasajero.innerHTML += `
                 <h3>Datos Pasajero ${i}</h3>
@@ -86,19 +90,19 @@ btnEnviarDatos.addEventListener("click", () => {
                     <div class="col">
                     <input type="text" class="form-control nombre" placeholder="Nombre" aria-label="Nombre" required>
                     <div class="valid-feedback">
-                        Looks good!
+                        Bien!
                     </div>
                     <div class="invalid-feedback">
-                        Please choose a username.
+                        Debe ingresar un nombre.
                     </div>
                     </div>
                     <div class="col">
                     <input type="text" class="form-control apellido" placeholder="Apellido" aria-label="Apellido" required>
                     <div class="valid-feedback">
-                        Looks good!
+                        Bien!
                     </div>
                     <div class="invalid-feedback">
-                    Please choose a username.
+                    Debe ingresar un apellido.
                     </div>
                     </div>
                 </div>
@@ -106,10 +110,10 @@ btnEnviarDatos.addEventListener("click", () => {
                     <div class="col">
                         <input type="text" class="form-control direccion" placeholder="Direccion" aria-label="Direccion" required>
                         <div class="valid-feedback">
-                            Looks good!
+                            Bien!
                         </div>
                         <div class="invalid-feedback">
-                        Please choose a username.
+                        Debe ingresar una direccion.
                         </div>
                     </div>
                 </div>
@@ -117,36 +121,56 @@ btnEnviarDatos.addEventListener("click", () => {
                     <div class="col">
                         <input type="number" class="form-control edad" placeholder="Edad" aria-label="Edad" required>
                         <div class="valid-feedback">
-                            Looks good!
+                            Bien!
                         </div>
                         <div class="invalid-feedback">
-                        Please choose a username.
+                        Debe ingresar la edad
                         </div>
                     </div>
                     <div class="col">
                         <input type="text" class="form-control dni" placeholder="DNI" aria-label="DNI" required>
                         <div class="valid-feedback">
-                            Looks good!
+                            Bien!
                         </div>
                         <div class="invalid-feedback">
-                        Please choose a username.
+                        Debe ingresar el DNI
                         </div>
                     </div>
-                </div>`
+                </div>
+                <div class="row">
+                <div class="col">
+                    <input type="text" class="form-control email" placeholder="Email" aria-label="Email" required>
+                    <div class="valid-feedback">
+                        Bien!
+                    </div>
+                    <div class="invalid-feedback">
+                    Debe ingresar un email
+                    </div>
+                </div>
+            </div>`
+                
     }
     
-    formPasajero.innerHTML += `<button class="btn btn-outline-warning" id="btn-confirmar-reserva">Confirmar reserva</button>`
-    //btnConfirmarReserva = document.getElementById("btn-confirmar-reserva")    
-    //btnConfirmarReserva.addEventListener("click", creaReserva)
+    formPasajero.innerHTML += `<div><button class="btn btn-outline-warning" id="btn-confirmar-reserva">Confirmar reserva</button></div>`
 
-    
-    
     //MUESTRA LOS FORMULARIOS DE PASAJEROS Y OCULTA EL FORMULARIO DE DATOS DEL VUELO
     formulariosPasajeros.removeAttribute("hidden")
     contenedor2.setAttributeNode(hidden)
+
+    //ACTUALIZA EL RESUMEN EN PANTALLA
+    divResumen.innerHTML += `<div><h4>Fecha</h4></div>
+    <div>${fechaVuelo}</div>
+    <div><h4>Hora</h4></div>
+    <div>${horaVuelo}</div>
+    <div><h4>Equipaje</h4></div>
+    <div>${equipaje}</div>
+    <div><h4>Cobertura Médica</h4></div>
+    <div>${coberturaMedica ? "SI" : "NO"}</div>`
+    divTotal.innerHTML = `<h4>Subtotal: $${total}</h4>`
+
 })
 
-//CODIGO BOOTSTRAP PARA VALIDACIONES
+//CODIGO BOOTSTRAP PARA VALIDACIONES DENTRO DEL FORMULARIO DE PASAJEROS
 'use strict'
     
 // Fetch all the forms we want to apply custom Bootstrap validation styles to
@@ -160,9 +184,17 @@ Array.from(forms).forEach(form => {
         event.stopPropagation()
     }
 
+    //CUANDO EL FORMULARIO ESTA OK SE EJECUTA EL CODIGO PARA CREAR LA RESERVA
     if(form.checkValidity()){
         event.preventDefault()
-        let nombres, apellidos, direcciones, dni, edades
+        let nombres, apellidos, direcciones, dni, edades, emails, resumenAside
+
+        operacionFinalizada = document.getElementById("operacionFinalizada")
+        resumenAside = document.getElementById("resumenAside")
+
+        //OCULTA LOS FORMULARIOS
+        formulariosPasajeros.hidden = true
+        resumenAside.hidden = true
 
         //CAPTURA DATOS DE LOS PASAJEROS
         nombres = document.getElementsByClassName("nombre")
@@ -170,18 +202,26 @@ Array.from(forms).forEach(form => {
         direcciones = document.getElementsByClassName("direccion")
         dni = document.getElementsByClassName("dni")
         edades = document.getElementsByClassName("edad")
+        emails = document.getElementsByClassName("email")
+
 
         //CREA LOS OBJETOS PASAJERO
         pasajeros = new Array()
 
         for(let i = 0; i < cantidadPasajeros; i++){
-            pasajeros.push(new Pasajero(nombres[i].value, apellidos[i].value, dni[i].value, direcciones[i].value, edades[i].value))
+            pasajeros.push(new Pasajero(nombres[i].value, apellidos[i].value, dni[i].value, direcciones[i].value, edades[i].value, emails[i].value))
         }
         
         //CREA EL OBJETO RESERVA
-        reserva = new Reserva(aeropuertoOrigen, aeropuertoDestino, fechaVuelo, horaVuelo, pasajeros, total, equipaje, coberturaMedica)
+        reserva = new Reserva(new Aeropuerto(aeropuertoOrigen.nombre, aeropuertoOrigen.tarifaBase), new Aeropuerto(aeropuertoDestino.nombre, aeropuertoDestino.tarifaBase),
+                                fechaVuelo, horaVuelo, pasajeros, total, equipaje, coberturaMedica)
 
-        console.log(reserva)    
+        console.log(reserva)
+
+        //MUESTRA UN MENSAJE DE OPERACION EXITOSA
+        operacionFinalizada.innerHTML = `<div><h4>OPERACION REALIZADA CON EXITO!</h4>
+        <h4>Chequea tu email para ver el resumen de tu reserva</h4></div>`
+        operacionFinalizada.removeAttribute("hidden")
     }
 
     form.classList.add('was-validated')
