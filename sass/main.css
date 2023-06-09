@@ -2,13 +2,11 @@ header {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  height: 90px;
+  height: 100px;
 }
 header img {
-  height: 70px;
-  width: 200px;
-  margin-top: 10px;
-  margin-left: 10px;
+  width: 400px;
+  height: 100px;
 }
 header nav {
   width: 50%;
@@ -25,6 +23,9 @@ header nav dl dt a {
   color: gold;
 }
 
+main {
+  min-height: 1000px;
+}
 main #carrousel {
   height: 500px;
   width: 100%;
@@ -136,6 +137,51 @@ main #form-cont {
 }
 main #form-cont form {
   width: 70%;
+}
+
+#mainReserva {
+  margin-top: 10%;
+}
+#mainReserva .contenedor-1 {
+  margin-left: 15%;
+  border: 2px solid gold;
+  border-radius: 20px;
+  width: 40%;
+  display: inline-block;
+}
+#mainReserva .contenedor-1 #formularios-pasajeros .form-pasajero {
+  padding: 5px;
+}
+#mainReserva .contenedor-1 #formularios-pasajeros .form-pasajero .row {
+  padding: 5px;
+}
+#mainReserva .contenedor-1 #btn-confirmar-reserva {
+  margin-top: 10px;
+  margin-bottom: 10px;
+  margin-left: 40%;
+}
+#mainReserva .contenedor-1 h1 {
+  text-align: center;
+}
+#mainReserva .contenedor-1 #contenedor-2 {
+  padding: 5%;
+}
+#mainReserva .contenedor-1 #contenedor-2 #form-vuelo {
+  width: 40%;
+  margin-left: 30%;
+  margin-right: 30%;
+}
+#mainReserva #resumenAside {
+  display: inline-block;
+  position: absolute;
+  margin-left: 5%;
+  width: 20%;
+}
+#mainReserva #resumenAside h1 {
+  text-decoration: underline;
+}
+#mainReserva .enviar-form-pasajero {
+  margin-left: 45%;
 }
 
 footer {

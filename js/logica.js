@@ -24,60 +24,65 @@
  * SE SEPARA EN ARCHIVOS LAS CLASES: AEROPUERTO, RESERVA, PASAJERO
  */
 
-
-//GENERA UN OBJETO RESERVA E INVOCA SUS FUNCIONALIDADES PARA UNA NUEVA RESERVA DE VUELO
-let reserva = new Reserva()
-
-reserva.seleccionarOrigen()
-reserva.seleccionarDestino()
-reserva.seleccionarPasajeros()
-reserva.ingresarDatosPasajeros()
-reserva.seleccionarFechaVuelo()
-reserva.seleccionarHoraVuelo()
-reserva.seleccionarEquipaje()
-reserva.seleccionarCobertura()
-reserva.generarId() //EN FUTURAS ENTREGAS ESTE METODO SERA LLAMADO AUTOMATICAMENTE PARA GENERAR EL ID DE VUELO
-reserva.mostrarResumen()
-
-
-//EL SIGUIENTE CODIGO IMPLEMENTA EL USO DE DOM PARA FUTURAS ENTREGAS DEL PROYECTO
-/*
-//CARGA DE AEROPUERTOS DISPONIBLES PARA SELECCIONAR
+let aeropuertoOrigen = new Aeropuerto()
+let aeropuertoDestino = new Aeropuerto()
+let pasajeros = new Array()
+let atributo, nodoOption
 let aeropuertos = Aeropuerto.cargarAeropuertos()
 let selectOrigen = document.getElementById("select-origen")
 let selectDestino = document.getElementById("select-destino")
-let cantidadPasajeros = document.getElementById("cantidad-pasajeros")
-let atributoAeropuerto, nodoOption, atributoPasajeros, btnBuscar
+let cantPasajerosElmt = document.getElementById("cantidad-pasajeros")
+let btnBuscar = document.getElementById("btn-buscar")
+
 
 aeropuertos.forEach((elemento) => {
     nodoOption = document.createElement("option")
     nodoOption.innerText = elemento.nombre
-    atributoAeropuerto = document.createAttribute("value")
-    atributoAeropuerto.value = elemento.nombre
-    nodoOption.setAttributeNode(atributoAeropuerto)
+    atributo = document.createAttribute("value")
+    atributo.value = elemento.nombre
+    nodoOption.setAttributeNode(atributo)
     selectOrigen.appendChild(nodoOption)
 })
 
 aeropuertos.forEach((elemento) => {
     nodoOption = document.createElement("option")
     nodoOption.innerText = elemento.nombre
-    atributoAeropuerto = document.createAttribute("value")
-    atributoAeropuerto.value = elemento.nombre
-    nodoOption.setAttributeNode(atributoAeropuerto)
+    atributo = document.createAttribute("value")
+    atributo.value = elemento.nombre
+    nodoOption.setAttributeNode(atributo)
     selectDestino.appendChild(nodoOption)
 })
 
 for(let i = 1; i <= 4; i++){
     nodoOption = document.createElement("option")
     nodoOption.innerText = i
-    atributoPasajeros = document.createAttribute("value")
-    atributoPasajeros.value = i
-    nodoOption.setAttributeNode(atributoPasajeros)
-    cantidadPasajeros.appendChild(nodoOption)
+    atributo = document.createAttribute("value")
+    atributo.value = i
+    nodoOption.setAttributeNode(atributo)
+    cantPasajerosElmt.appendChild(nodoOption)
 }
 
-btnBuscar = document.getElementById("btn-buscar")
+
 btnBuscar.addEventListener("click", () => {
-    console.log(`El aeropuerto de origen es: ${selectOrigen.value}\nEl aeropuerto destino es: ${selectDestino.value}\nLa cantidad de pasajeros es: ${cantidadPasajeros.value}`)
+    if(selectOrigen.value == selectDestino.value){
+        alert("ERROR - LOS AEROPUERTOS DE ORIGEN Y DESTINO NO DEBEN SER IGUALES")
+        return 0
+    }
+
+    if(selectOrigen.value == "Aeropuerto Origen" || selectDestino.value == "Aeropuerto Destino"){
+        alert("ERROR - DEBE SELECCIONAR UN AEROPUERTO VÁLIDO")
+        return 0
+    }
+
+    if(cantPasajerosElmt.value == "Pasajeros"){
+        alert("ERROR - DEBE SELECCIONAR UNA CANTIDAD DE PASAJEROS VÁLIDA")
+        return 0
+    }
+
+    localStorage.clear()
+    localStorage.setItem("origen", selectOrigen.value)
+    localStorage.setItem("destino", selectDestino.value)
+    localStorage.setItem("pasajeros", cantPasajerosElmt.value)
+    localStorage.setItem("aeropuertos", JSON.stringify(aeropuertos))
+    window.open("html/reserva.html", "reserva")
 })
-*/
