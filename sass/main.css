@@ -4,7 +4,7 @@ header {
   justify-content: space-between;
   height: 100px;
 }
-header img {
+header a img {
   width: 400px;
   height: 100px;
 }
@@ -166,6 +166,20 @@ main #form-cont form {
 }
 #mainReserva .contenedor-1 #formularios-pasajeros .form-pasajero .row {
   padding: 5px;
+}
+#mainReserva .contenedor-1 #formularios-pasajeros #btn-volver {
+  margin-top: 10px;
+  margin-bottom: 10px;
+  width: 60%;
+  margin-left: 20%;
+  margin-right: 20%;
+}
+#mainReserva .contenedor-1 #btn-inicio {
+  margin-top: 10px;
+  margin-bottom: 10px;
+  width: 60%;
+  margin-left: 20%;
+  margin-right: 20%;
 }
 #mainReserva .contenedor-1 h1 {
   text-align: center;

@@ -63,20 +63,24 @@ for(let i = 1; i <= 4; i++){
 }
 
 
-btnBuscar.addEventListener("click", () => {
+btnBuscar.addEventListener("click", e => {
+    
     if(selectOrigen.value == selectDestino.value){
         alert("ERROR - LOS AEROPUERTOS DE ORIGEN Y DESTINO NO DEBEN SER IGUALES")
-        return 0
+        e.preventDefault()
+        e.stopPropagation()
     }
 
     if(selectOrigen.value == "Aeropuerto Origen" || selectDestino.value == "Aeropuerto Destino"){
+        e.preventDefault()
+        e.stopPropagation()
         alert("ERROR - DEBE SELECCIONAR UN AEROPUERTO VÁLIDO")
-        return 0
     }
 
     if(cantPasajerosElmt.value == "Pasajeros"){
+        e.preventDefault()
+        e.stopPropagation()
         alert("ERROR - DEBE SELECCIONAR UNA CANTIDAD DE PASAJEROS VÁLIDA")
-        return 0
     }
 
     localStorage.clear()
@@ -84,5 +88,4 @@ btnBuscar.addEventListener("click", () => {
     localStorage.setItem("destino", selectDestino.value)
     localStorage.setItem("pasajeros", cantPasajerosElmt.value)
     localStorage.setItem("aeropuertos", JSON.stringify(aeropuertos))
-    window.open("html/reserva.html", "reserva")
 })

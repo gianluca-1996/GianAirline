@@ -1,7 +1,7 @@
 let reserva, checkInputs , fechaVuelo, mesActual, diaActual, fechaActual, divTotal, contenedor2,
     coberturaMedica, equipaje, horaVuelo, total, formVuelo, inputFecha, fechaMin, formulariosPasajeros,
     divResumen, aeropuertos, aeropuertoOrigen, aeropuertoDestino, cantidadPasajeros, btnEnviarDatos,
-    hidden, btnConfirmarReserva, pasajeros, formPasajero, operacionFinalizada
+    hidden, btnConfirmarReserva, pasajeros, formPasajero, operacionFinalizada, btnVolver
 
 formulariosPasajeros = document.getElementById("formularios-pasajeros")
 formPasajero = document.getElementById("form-pasajero")
@@ -64,6 +64,7 @@ btnEnviarDatos.addEventListener("click", () => {
     }
     
     checkInputs = document.querySelectorAll(".form-check-input:checked") //OBTIENE LOS INPUT RADIO TILDADOS
+    
     if(checkInputs.length < 3){
         alert("ERROR - FALTA SELECCIONAR OPCIONES DE RESERVA")
         return
@@ -77,77 +78,83 @@ btnEnviarDatos.addEventListener("click", () => {
     total += parseInt(valores[1])
     coberturaMedica = checkInputs[2].value
 
-    if(coberturaMedica){
+    if(coberturaMedica == "true"){
         total += 3000
+        coberturaMedica = true
+    }
+    else{
+        coberturaMedica = false
     }
     
 
     //CREA LOS FORMULARIOS SEGUN LA CANTIDAD DE PASAJEROS
     for(let i = 1; i <= cantidadPasajeros; i++){
         formPasajero.innerHTML += `
-                <h3>Datos Pasajero ${i}</h3>
-                <div class="row">
-                    <div class="col">
-                    <input type="text" class="form-control nombre" placeholder="Nombre" aria-label="Nombre" required>
-                    <div class="valid-feedback">
-                        Bien!
-                    </div>
-                    <div class="invalid-feedback">
-                        Debe ingresar un nombre.
-                    </div>
-                    </div>
-                    <div class="col">
-                    <input type="text" class="form-control apellido" placeholder="Apellido" aria-label="Apellido" required>
-                    <div class="valid-feedback">
-                        Bien!
-                    </div>
-                    <div class="invalid-feedback">
-                    Debe ingresar un apellido.
-                    </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col">
-                        <input type="text" class="form-control direccion" placeholder="Direccion" aria-label="Direccion" required>
-                        <div class="valid-feedback">
-                            Bien!
-                        </div>
-                        <div class="invalid-feedback">
-                        Debe ingresar una direccion.
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col">
-                        <input type="number" class="form-control edad" placeholder="Edad" aria-label="Edad" required>
-                        <div class="valid-feedback">
-                            Bien!
-                        </div>
-                        <div class="invalid-feedback">
-                        Debe ingresar la edad
-                        </div>
-                    </div>
-                    <div class="col">
-                        <input type="text" class="form-control dni" placeholder="DNI" aria-label="DNI" required>
-                        <div class="valid-feedback">
-                            Bien!
-                        </div>
-                        <div class="invalid-feedback">
-                        Debe ingresar el DNI
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                <div class="col">
-                    <input type="text" class="form-control email" placeholder="Email" aria-label="Email" required>
-                    <div class="valid-feedback">
-                        Bien!
-                    </div>
-                    <div class="invalid-feedback">
-                    Debe ingresar un email
-                    </div>
-                </div>
-            </div>`
+                        <div>
+                            <h3>Datos Pasajero ${i}</h3>
+                            <div class="row">
+                                <div class="col">
+                                    <input type="text" class="form-control nombre" placeholder="Nombre" aria-label="Nombre" required>
+                                    <div class="valid-feedback">
+                                        Bien!
+                                    </div>
+                                    <div class="invalid-feedback">
+                                        Debe ingresar un nombre.
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <input type="text" class="form-control apellido" placeholder="Apellido" aria-label="Apellido" required>
+                                    <div class="valid-feedback">
+                                        Bien!
+                                    </div>
+                                    <div class="invalid-feedback">
+                                        Debe ingresar un apellido.
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col">
+                                    <input type="text" class="form-control direccion" placeholder="Direccion" aria-label="Direccion" required>
+                                    <div class="valid-feedback">
+                                        Bien!
+                                    </div>
+                                    <div class="invalid-feedback">
+                                    Debe ingresar una direccion.
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col">
+                                    <input type="number" class="form-control edad" placeholder="Edad" aria-label="Edad" required>
+                                    <div class="valid-feedback">
+                                        Bien!
+                                    </div>
+                                    <div class="invalid-feedback">
+                                    Debe ingresar la edad
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <input type="text" class="form-control dni" placeholder="DNI" aria-label="DNI" required>
+                                    <div class="valid-feedback">
+                                        Bien!
+                                    </div>
+                                    <div class="invalid-feedback">
+                                    Debe ingresar el DNI
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col">
+                                    <input type="text" class="form-control email" placeholder="Email" aria-label="Email" required>
+                                    <div class="valid-feedback">
+                                        Bien!
+                                    </div>
+                                    <div class="invalid-feedback">
+                                    Debe ingresar un email
+                                    </div>
+                                </div>
+                            </div>
+                        </div>`
                 
     }
     
@@ -167,15 +174,12 @@ btnEnviarDatos.addEventListener("click", () => {
     <div><h4>Cobertura Médica</h4></div>
     <div>${coberturaMedica ? "SI" : "NO"}</div>`
     divTotal.innerHTML = `<h4>Subtotal: $${total}</h4>`
-
 })
 
 //CODIGO BOOTSTRAP PARA VALIDACIONES DENTRO DEL FORMULARIO DE PASAJEROS
 'use strict'
-    
 // Fetch all the forms we want to apply custom Bootstrap validation styles to
 const forms = document.querySelectorAll('.needs-validation')
-
 // Loop over them and prevent submission
 Array.from(forms).forEach(form => {
     form.addEventListener('submit', event => {
@@ -220,10 +224,44 @@ Array.from(forms).forEach(form => {
 
         //MUESTRA UN MENSAJE DE OPERACION EXITOSA
         operacionFinalizada.innerHTML = `<div><h4>OPERACION REALIZADA CON EXITO!</h4>
-        <h4>Chequea tu email para ver el resumen de tu reserva</h4></div>`
+        <h4>Chequea tu email para ver el resumen de tu reserva</h4></div>
+        <a href="../index.html"><button type="button" class="btn btn-outline-warning" id="btn-inicio">Inicio</button></a>`
         operacionFinalizada.removeAttribute("hidden")
     }
 
     form.classList.add('was-validated')
     }, false)
+})
+
+//ASIGNA EL EVENTO AL BOTON btn-volver PARA VOLVER A MOSTRAR EL FOMULARIO ANTERIOR
+btnVolver = document.getElementById("btn-volver")
+btnVolver.addEventListener("click", () => {
+    let elementos = divResumen.getElementsByTagName("div")
+    let elementosFormDiv = formPasajero.getElementsByTagName("*")
+
+    //ELIMINA LOS ELEMENTOS DEL FORMULARIO DE PASAJEROS
+    for(let i = 0; i < elementosFormDiv.length; i++){
+        elementosFormDiv[i].remove()
+    }
+
+    //ELIMINA LOS ELEMENTOS DEL RESUMEN
+    for(let i = 0; i < elementos.length; i++){
+        elementos[i].remove()
+    }
+    
+    //MOSTRAR RESUMEN HASTA EL MOMENTO
+    divResumen.innerHTML = `<div><h4>Origen</h4></div>
+    <div>${aeropuertoOrigen.nombre}</div>
+    <div><h4>Destino</h4></div>
+    <div>${aeropuertoDestino.nombre}</div>
+    <div><h4>Pasajeros</h4></div>
+    <div>${cantidadPasajeros}</div>`
+
+    //ACTUALIZA EL VALOR HASTA EL MOMENTO DE LA TARIFA
+    total = aeropuertoOrigen.tarifaBase + aeropuertoDestino.tarifaBase + (7000 * cantidadPasajeros)
+    divTotal.innerHTML = `<h4>Subtotal: $${total}</h4>`
+    
+    //MUESTRA EL FORMULARIO DE VUELO Y OCULTA EL DE LOS PASAJEROS
+    contenedor2.removeAttribute("hidden")
+    formulariosPasajeros.setAttributeNode(hidden)
 })

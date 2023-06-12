@@ -4,9 +4,11 @@ header{
     justify-content: space-between;
     height: 100px;
 
-    img{
-        width: 400px;
-        height: 100px;
+    a{
+        img{
+            width: 400px;
+            height: 100px;
+        }
     }
 
     nav{
@@ -201,6 +203,22 @@ main{
                     padding: 5px;
                 }
             }
+
+            #btn-volver{
+                margin-top: 10px;
+                margin-bottom: 10px;
+                width: 60%;
+                margin-left: 20%;
+                margin-right: 20%;
+            }
+        }
+
+        #btn-inicio{
+            margin-top: 10px;
+            margin-bottom: 10px;
+            width: 60%;
+            margin-left: 20%;
+            margin-right: 20%;
         }
 
 
