@@ -5,8 +5,7 @@ let reserva, checkInputs , fechaVuelo, mesActual, diaActual, fechaActual, divTot
 
 formulariosPasajeros = document.getElementById("formularios-pasajeros")
 formPasajero = document.getElementById("form-pasajero")
-hidden = document.createAttribute("hidden")
-formulariosPasajeros.setAttributeNode(hidden)
+formulariosPasajeros.hidden = true
 fechaVuelo = null
 btnEnviarDatos = document.getElementById("btn-enviar-datos")
 inputFecha = document.getElementById("inputFecha")
@@ -125,12 +124,12 @@ btnEnviarDatos.addEventListener("click", () => {
                             </div>
                             <div class="row">
                                 <div class="col">
-                                    <input type="number" class="form-control edad" placeholder="Edad" aria-label="Edad" required>
+                                    <input type="number" class="form-control edad" placeholder="Edad" aria-label="Edad" min="12" max="120" required>
                                     <div class="valid-feedback">
                                         Bien!
                                     </div>
                                     <div class="invalid-feedback">
-                                    Debe ingresar la edad
+                                    La edad debe ser entre 12-120
                                     </div>
                                 </div>
                                 <div class="col">
@@ -145,7 +144,7 @@ btnEnviarDatos.addEventListener("click", () => {
                             </div>
                             <div class="row">
                                 <div class="col">
-                                    <input type="text" class="form-control email" placeholder="Email" aria-label="Email" required>
+                                    <input type="email" class="form-control email" placeholder="Email" aria-label="Email" required>
                                     <div class="valid-feedback">
                                         Bien!
                                     </div>
@@ -158,11 +157,12 @@ btnEnviarDatos.addEventListener("click", () => {
                 
     }
     
+    //AGREGA BOTON PARA ENVIAR LOS FORMULARIOS DE LOS PASAJEROS Y CONFIRMAR LA RESERVA
     formPasajero.innerHTML += `<div><button class="btn btn-outline-warning" id="btn-confirmar-reserva">Confirmar reserva</button></div>`
 
     //MUESTRA LOS FORMULARIOS DE PASAJEROS Y OCULTA EL FORMULARIO DE DATOS DEL VUELO
-    formulariosPasajeros.removeAttribute("hidden")
-    contenedor2.setAttributeNode(hidden)
+    formulariosPasajeros.hidden = false
+    contenedor2.hidden = true
 
     //ACTUALIZA EL RESUMEN EN PANTALLA
     divResumen.innerHTML += `<div><h4>Fecha</h4></div>
@@ -191,10 +191,12 @@ Array.from(forms).forEach(form => {
     //CUANDO EL FORMULARIO ESTA OK SE EJECUTA EL CODIGO PARA CREAR LA RESERVA
     if(form.checkValidity()){
         event.preventDefault()
-        let nombres, apellidos, direcciones, dni, edades, emails, resumenAside
+        let nombres, apellidos, direcciones, dni, edades, emails, resumenAside, modal, cuerpoModalResumen
 
         operacionFinalizada = document.getElementById("operacionFinalizada")
         resumenAside = document.getElementById("resumenAside")
+        modal = new bootstrap.Modal(document.getElementById('resumenModal')) //CAPTURA EL MODAL DEL HTML PARA PODER MOSTRARLO CON LOS DATOS DE LA RESERVA
+        cuerpoModalResumen = document.getElementById("cuerpoModalResumen")
 
         //OCULTA LOS FORMULARIOS
         formulariosPasajeros.hidden = true
@@ -220,13 +222,26 @@ Array.from(forms).forEach(form => {
         reserva = new Reserva(new Aeropuerto(aeropuertoOrigen.nombre, aeropuertoOrigen.tarifaBase), new Aeropuerto(aeropuertoDestino.nombre, aeropuertoDestino.tarifaBase),
                                 fechaVuelo, horaVuelo, pasajeros, total, equipaje, coberturaMedica)
 
-        console.log(reserva)
+
+        cuerpoModalResumen.innerHTML = `<div><h4>Vuelo N°: ${reserva.id}</h4></div>
+        <div><h4>Origen: ${reserva.origen.nombre}</h4></div>
+        <div><h4>Destino: ${reserva.destino.nombre}</h4></div>
+        <div><h4>Pasajeros: ${reserva.pasajeros.length}</h4></div>
+        <div><h4>Fecha: ${reserva.fecha}</h4></div>
+        <div><h4>Hora: ${reserva.hora}</h4></div>
+        <div><h4>Equipaje: ${reserva.equipaje}</h4></div>
+        <div><h4>Cobertura Médica: ${reserva.coberturaMedica ? "Si" : "No"}</h4></div>
+        <div><h3>Total: $${reserva.tarifa}</h3></div>`
+        divTotal.innerHTML = `<h4>Subtotal: $${total}</h4>`
 
         //MUESTRA UN MENSAJE DE OPERACION EXITOSA
         operacionFinalizada.innerHTML = `<div><h4>OPERACION REALIZADA CON EXITO!</h4>
-        <h4>Chequea tu email para ver el resumen de tu reserva</h4></div>
+        <h4>¡Gracias por utilizar nuestro sistema de reservas!</h4></div>
         <a href="../index.html"><button type="button" class="btn btn-outline-warning" id="btn-inicio">Inicio</button></a>`
-        operacionFinalizada.removeAttribute("hidden")
+        operacionFinalizada.hidden = false
+
+        modal.show() //MUESTRA EL MODAL
+        console.log(reserva)
     }
 
     form.classList.add('was-validated')
@@ -262,6 +277,6 @@ btnVolver.addEventListener("click", () => {
     divTotal.innerHTML = `<h4>Subtotal: $${total}</h4>`
     
     //MUESTRA EL FORMULARIO DE VUELO Y OCULTA EL DE LOS PASAJEROS
-    contenedor2.removeAttribute("hidden")
-    formulariosPasajeros.setAttributeNode(hidden)
+    contenedor2.hidden = false
+    formulariosPasajeros.hidden = true
 })

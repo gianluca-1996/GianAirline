@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gestión de vuelo</title>
     <link rel="stylesheet" href="../sass/main.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
     <script src="../js/ClassAeropuerto.js"></script>
     <script src="../js/ClassPasajero.js"></script>
     <script src="../js/ClassReserva.js"></script>
@@ -40,7 +41,7 @@
     </header>
 
     <main id="mainReserva">
-        <div class="contenedor-1">
+        <div class="contenedor-1 animate__animated animate__backInDown">
             <h1>GESTION DE VUELO</h1>
             <div id="contenedor-2">
                 <form action="#" class="g-5" id="form-vuelo">
@@ -52,27 +53,27 @@
                         <h6>Hora</h6>
                         <div class="form-check">
                             <label class="form-check-label" for="flexRadioDefault1">
-                                06:00 AM - $13.000
+                                06:00 HS - $13.000
                             </label>
-                            <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" value="06:00 AM,13000">
+                            <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" value="06:00 HS,13000">
                         </div>
                         <div class="form-check">
                             <label class="form-check-label" for="flexRadioDefault2">
-                                10:00 AM - $15.000
+                                10:00 HS - $15.000
                             </label>
-                            <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" value="10:00 AM,15000">
+                            <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" value="10:00 HS,15000">
                         </div>
                         <div class="form-check">
                             <label class="form-check-label" for="flexRadioDefault3">
-                                18:00 PM - $17.000
+                                18:00 HS - $17.000
                             </label>
-                            <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault3" value="18:00 PM,17000">
+                            <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault3" value="18:00 HS,17000">
                         </div>
                         <div class="form-check">
                             <label class="form-check-label" for="flexRadioDefault4">
-                                23:00 PM - $10.000
+                                23:00 HS - $10.000
                             </label>
-                            <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault4" value="23:00 PM,10000">
+                            <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault4" value="23:00 HS,10000">
                         </div>
                     </div>
                     <div id="div-equipaje">
@@ -126,12 +127,29 @@
             </div>
             <div id="operacionFinalizada" hidden></div>
         </div>
-        <div id="resumenAside">
+        <div id="resumenAside" class="animate__animated animate__backInDown">
             <aside>
                 <h1>Tu Reserva</h1>
                 <div id="resumen"></div>
                 <div id="total"></div>
             </aside>
+        </div>
+        <!-- Modal -->
+        <div class="modal fade" id="resumenModal" tabindex="-1" aria-labelledby="modalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                <h1 class="modal-title fs-5" id="modalLabel">RESUMEN DE VUELO</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body" id="cuerpoModalResumen">
+                </div>
+                <div class="modal-footer">
+                <button type="button" class="btn btn-success" data-bs-dismiss="modal">Descargar</button>
+                <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Aceptar</button>
+                </div>
+            </div>
+            </div>
         </div>
     </main>
 
