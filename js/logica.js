@@ -64,24 +64,47 @@ for(let i = 1; i <= 4; i++){
 
 
 btnBuscar.addEventListener("click", e => {
+    e.preventDefault()
     
     if(selectOrigen.value == selectDestino.value){
-        alert("ERROR - LOS AEROPUERTOS DE ORIGEN Y DESTINO NO DEBEN SER IGUALES")
-        e.preventDefault()
-        e.stopPropagation()
+        Swal.fire({
+            icon: 'error',
+            title: 'ERROR',
+            text: 'LOS AEROPUERTOS DE ORIGEN Y DESTINO NO DEBEN SER IGUALES'
+          })
+        return 0
     }
 
     if(selectOrigen.value == "Aeropuerto Origen" || selectDestino.value == "Aeropuerto Destino"){
-        e.preventDefault()
-        e.stopPropagation()
-        alert("ERROR - DEBE SELECCIONAR UN AEROPUERTO VÁLIDO")
+        Swal.fire({
+            icon: 'error',
+            title: 'ERROR',
+            text: 'DEBE SELECCIONAR UN AEROPUERTO VALIDO'
+          })
+        return 0
     }
 
     if(cantPasajerosElmt.value == "Pasajeros"){
-        e.preventDefault()
-        e.stopPropagation()
-        alert("ERROR - DEBE SELECCIONAR UNA CANTIDAD DE PASAJEROS VÁLIDA")
+        Swal.fire({
+            icon: 'error',
+            title: 'ERROR',
+            text: 'DEBE SELECCIONAR LA CANTIDAD DE PASAJEROS'
+          })
+        return 0
     }
+
+    Swal.fire({
+        title: 'Buscando vuelos disponibles...',
+        timer: 2000,
+        timerProgressBar: true,
+        didOpen: () => {
+            Swal.showLoading()
+        }
+    })
+
+    setTimeout(() => {
+        window.open("../html/reserva.html")
+    }, 2000)
 
     localStorage.clear()
     localStorage.setItem("origen", selectOrigen.value)

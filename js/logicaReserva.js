@@ -58,17 +58,35 @@ btnEnviarDatos.addEventListener("click", () => {
     
     fechaVuelo = inputFecha.value
     if(!fechaVuelo){
-        alert("ERROR - DEBE SELECCIONAR UNA FECHA DE VUELO")
+        Swal.fire({
+            icon: 'error',
+            title: 'ERROR',
+            text: 'DEBE SELECCIONAR UNA FECHA DE VUELO'
+          })
         return
     }
     
     checkInputs = document.querySelectorAll(".form-check-input:checked") //OBTIENE LOS INPUT RADIO TILDADOS
     
     if(checkInputs.length < 3){
-        alert("ERROR - FALTA SELECCIONAR OPCIONES DE RESERVA")
+        Swal.fire({
+            icon: 'error',
+            title: 'ERROR',
+            text: 'FALTAN SELECCIONAR OPCIONES DE VUELO'
+          })
         return
     }
     
+    
+    Swal.fire({
+        title: 'Procesando datos...',
+        timer: 1000,
+        timerProgressBar: true,
+        didOpen: () => {
+            Swal.showLoading()
+        }
+    })
+
     valores = new String(checkInputs[0].value).split(',')   //OBTIENE EL VALOR DE LA HORA Y LA TARIFA
     horaVuelo = valores[0]
     total += parseInt(valores[1])
@@ -158,7 +176,7 @@ btnEnviarDatos.addEventListener("click", () => {
     }
     
     //AGREGA BOTON PARA ENVIAR LOS FORMULARIOS DE LOS PASAJEROS Y CONFIRMAR LA RESERVA
-    formPasajero.innerHTML += `<div><button class="btn btn-outline-warning" id="btn-confirmar-reserva">Confirmar reserva</button></div>`
+    formPasajero.innerHTML += `<div><button class="btn btn-outline-warning" id="btn-confirmar-reserva">Siguiente</button></div>`
 
     //MUESTRA LOS FORMULARIOS DE PASAJEROS Y OCULTA EL FORMULARIO DE DATOS DEL VUELO
     formulariosPasajeros.hidden = false
@@ -191,16 +209,14 @@ Array.from(forms).forEach(form => {
     //CUANDO EL FORMULARIO ESTA OK SE EJECUTA EL CODIGO PARA CREAR LA RESERVA
     if(form.checkValidity()){
         event.preventDefault()
-        let nombres, apellidos, direcciones, dni, edades, emails, resumenAside, modal, cuerpoModalResumen
+        let nombres, apellidos, direcciones, dni, edades, emails, resumenAside
 
         operacionFinalizada = document.getElementById("operacionFinalizada")
         resumenAside = document.getElementById("resumenAside")
-        modal = new bootstrap.Modal(document.getElementById('resumenModal')) //CAPTURA EL MODAL DEL HTML PARA PODER MOSTRARLO CON LOS DATOS DE LA RESERVA
-        cuerpoModalResumen = document.getElementById("cuerpoModalResumen")
 
         //OCULTA LOS FORMULARIOS
-        formulariosPasajeros.hidden = true
-        resumenAside.hidden = true
+        /*formulariosPasajeros.hidden = true
+        resumenAside.hidden = true*/
 
         //CAPTURA DATOS DE LOS PASAJEROS
         nombres = document.getElementsByClassName("nombre")
@@ -223,25 +239,29 @@ Array.from(forms).forEach(form => {
                                 fechaVuelo, horaVuelo, pasajeros, total, equipaje, coberturaMedica)
 
 
-        cuerpoModalResumen.innerHTML = `<div><h4>Vuelo N°: ${reserva.id}</h4></div>
-        <div><h4>Origen: ${reserva.origen.nombre}</h4></div>
-        <div><h4>Destino: ${reserva.destino.nombre}</h4></div>
-        <div><h4>Pasajeros: ${reserva.pasajeros.length}</h4></div>
-        <div><h4>Fecha: ${reserva.fecha}</h4></div>
-        <div><h4>Hora: ${reserva.hora}</h4></div>
-        <div><h4>Equipaje: ${reserva.equipaje}</h4></div>
-        <div><h4>Cobertura Médica: ${reserva.coberturaMedica ? "Si" : "No"}</h4></div>
-        <div><h3>Total: $${reserva.tarifa}</h3></div>`
-        divTotal.innerHTML = `<h4>Subtotal: $${total}</h4>`
-
-        //MUESTRA UN MENSAJE DE OPERACION EXITOSA
-        operacionFinalizada.innerHTML = `<div><h4>OPERACION REALIZADA CON EXITO!</h4>
-        <h4>¡Gracias por utilizar nuestro sistema de reservas!</h4></div>
-        <a href="../index.html"><button type="button" class="btn btn-outline-warning" id="btn-inicio">Inicio</button></a>`
-        operacionFinalizada.hidden = false
-
-        modal.show() //MUESTRA EL MODAL
-        console.log(reserva)
+        Swal.fire({
+            title: '<strong>¿DESEA CONFIRMAR SU RESERVA?</strong>',
+            icon: 'question',
+            html:`<div><h4>Vuelo N°: ${reserva.id}</h4></div>
+            <div><h4>Origen: ${reserva.origen.nombre}</h4></div>
+            <div><h4>Destino: ${reserva.destino.nombre}</h4></div>
+            <div><h4>Pasajeros: ${reserva.pasajeros.length}</h4></div>
+            <div><h4>Fecha: ${reserva.fecha}</h4></div>
+            <div><h4>Hora: ${reserva.hora}</h4></div>
+            <div><h4>Equipaje: ${reserva.equipaje}</h4></div>
+            <div><h4>Cobertura Médica: ${reserva.coberturaMedica ? "Si" : "No"}</h4></div>
+            <div><h3>Total: $${reserva.tarifa}</h3></div>`,
+            showDenyButton: true,
+            confirmButtonText:'Ir a pago',
+            denyButtonText: `Volver`,
+        }).then((result) => {
+            if (result.isConfirmed) {
+              window.close()
+              window.open("")
+            } else if (result.isDenied) {
+              Swal.close()
+            }
+        })
     }
 
     form.classList.add('was-validated')
