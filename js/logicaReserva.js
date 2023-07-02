@@ -57,11 +57,11 @@ btnEnviarDatos.addEventListener("click", () => {
     let valores //AUXILIAR PARA OBTENER LOS VALORES DE LOS RADIOS SELECCIONADOS
     
     fechaVuelo = inputFecha.value
-    if(!fechaVuelo){
+    if( (!fechaVuelo) || (inputFecha.validity.rangeUnderflow) ){
         Swal.fire({
             icon: 'error',
             title: 'ERROR',
-            text: 'DEBE SELECCIONAR UNA FECHA DE VUELO'
+            text: 'DEBE SELECCIONAR UNA FECHA VÁLIDA'
           })
         return
     }
@@ -209,7 +209,7 @@ Array.from(forms).forEach(form => {
     //CUANDO EL FORMULARIO ESTA OK SE EJECUTA EL CODIGO PARA CREAR LA RESERVA
     if(form.checkValidity()){
         event.preventDefault()
-        let nombres, apellidos, direcciones, dni, edades, emails, resumenAside
+        let nombres, apellidos, direcciones, dni, edades, emails
 
         operacionFinalizada = document.getElementById("operacionFinalizada")
         resumenAside = document.getElementById("resumenAside")
@@ -257,7 +257,7 @@ Array.from(forms).forEach(form => {
         }).then((result) => {
             if (result.isConfirmed) {
               window.close()
-              window.open("")
+              window.open("../html/pago.html")
             } else if (result.isDenied) {
               Swal.close()
             }
