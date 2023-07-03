@@ -91,7 +91,7 @@ btnBuscar.addEventListener("click", e => {
     })
 
     setTimeout(() => {
-        window.open("./html/reserva.html")
+        window.open("../html/reserva.html")
     }, 2000)
 
     localStorage.clear()
