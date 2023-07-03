@@ -1,17 +1,3 @@
-/**ALGORITMO SIMULADOR DE RESERVA DE VUELO
- * SELECCIONAR AEROPUERTO DE ORIGEN
- *     ''      AEROPUERTO DE DESTINO
- *     ''      LA CANTIDAD DE PASAJEROS
- *             INGRESAR DATOS PERSONALES
- *     ''      LA FECHA DE VUELO
- *     ''      EL HORARIO DE VUELO
- *     ''      EL TIPO DE EQUIPAJE (KG)
- *     ''      ADICION DE COBERTURA MEDICA
- * GENERAR ID DE VUELO
- * MOSTRAR RESUMEN
- */
-
-
 /**RESUMEN DE LA APLICACION
  * SE IMPLEMENTA EL CODIGO PARA REALIZAR UNA RESERVA DE VUELO.
  * SE APLICA EL USO DE:
@@ -35,7 +21,7 @@ let selectDestino = document.getElementById("select-destino")
 let cantPasajerosElmt = document.getElementById("cantidad-pasajeros")
 let btnBuscar = document.getElementById("btn-buscar")
 
-fetch('/js/airports.json')
+fetch('./js/airports.json')
     .then((res) => res.json())
     .then((data) => {
         data.forEach(elemento => {
