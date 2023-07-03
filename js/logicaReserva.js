@@ -242,7 +242,7 @@ Array.from(forms).forEach(form => {
         Swal.fire({
             title: '<strong>¿DESEA CONFIRMAR SU RESERVA?</strong>',
             icon: 'question',
-            html:`<div><h4>Vuelo N°: ${reserva.id}</h4></div>
+            html:`<div><h4>Reserva N°: ${reserva.id}</h4></div>
             <div><h4>Origen: ${reserva.origen.nombre}</h4></div>
             <div><h4>Destino: ${reserva.destino.nombre}</h4></div>
             <div><h4>Pasajeros: ${reserva.pasajeros.length}</h4></div>

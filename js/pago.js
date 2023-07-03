@@ -47,25 +47,8 @@ $('.input-cart-number').on('keyup change', function(){
       $(this).blur().dequeue();
     });
   }, 500);
-  
-  /*function getCreditCardType(accountNumber) {
-    if (/^5[1-5]/.test(accountNumber)) {
-      result = 'mastercard';
-    } else if (/^4/.test(accountNumber)) {
-      result = 'visa';
-    } else if ( /^(5018|5020|5038|6304|6759|676[1-3])/.test(accountNumber)) {
-      result = 'maestro';
-    } else {
-      result = 'unknown'
-    }
-    return result;
-  }
-  
-  $('#card-number').change(function(){
-    console.log(getCreditCardType($(this).val()));
-  })*/
 
-
+//AGREGA EVENTO AL FORMULARIO DE PAGO  
 const forms = document.querySelectorAll('.needs-validation')
 Array.from(forms).forEach(form => {
   form.addEventListener('submit', event => {
@@ -84,6 +67,9 @@ Array.from(forms).forEach(form => {
             Swal.showLoading()
         }
       }).then(() => {
+        let btnConfirmar = document.querySelector('.btn')
+        btnConfirmar.disabled = true
+        
         Swal.fire({
           title: 'Reserva Confirmada!'  ,
           icon: 'success',
@@ -92,6 +78,7 @@ Array.from(forms).forEach(form => {
           text: 'En tu casilla de email recibirás toda la información sobre tu reserva'
         }).then((result) => {
           if(result.isConfirmed){
+            localStorage.clear()
             window.close()
           }
         })
