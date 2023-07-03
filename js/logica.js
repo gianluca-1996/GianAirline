@@ -35,7 +35,7 @@ let selectDestino = document.getElementById("select-destino")
 let cantPasajerosElmt = document.getElementById("cantidad-pasajeros")
 let btnBuscar = document.getElementById("btn-buscar")
 
-fetch('js/airports.json')
+fetch('/js/airports.json')
     .then((res) => res.json())
     .then((data) => {
         data.forEach(elemento => {
