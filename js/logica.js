@@ -24,34 +24,36 @@
  * SE SEPARA EN ARCHIVOS LAS CLASES: AEROPUERTO, RESERVA, PASAJERO
  */
 
+
 let aeropuertoOrigen = new Aeropuerto()
 let aeropuertoDestino = new Aeropuerto()
 let pasajeros = new Array()
 let atributo, nodoOption
-let aeropuertos = Aeropuerto.cargarAeropuertos()
+let aeropuertos = new Array()
 let selectOrigen = document.getElementById("select-origen")
 let selectDestino = document.getElementById("select-destino")
 let cantPasajerosElmt = document.getElementById("cantidad-pasajeros")
 let btnBuscar = document.getElementById("btn-buscar")
 
-
-aeropuertos.forEach((elemento) => {
-    nodoOption = document.createElement("option")
-    nodoOption.innerText = elemento.nombre
-    atributo = document.createAttribute("value")
-    atributo.value = elemento.nombre
-    nodoOption.setAttributeNode(atributo)
-    selectOrigen.appendChild(nodoOption)
-})
-
-aeropuertos.forEach((elemento) => {
-    nodoOption = document.createElement("option")
-    nodoOption.innerText = elemento.nombre
-    atributo = document.createAttribute("value")
-    atributo.value = elemento.nombre
-    nodoOption.setAttributeNode(atributo)
-    selectDestino.appendChild(nodoOption)
-})
+fetch('/js/airports.json')
+    .then((res) => res.json())
+    .then((data) => {
+        data.forEach(elemento => {
+            aeropuertos.push(new Aeropuerto(elemento.nombre, elemento.tarifaBase))
+            nodoOption = document.createElement("option")
+            nodoOption.innerText = elemento.nombre
+            atributo = document.createAttribute("value")
+            atributo.value = elemento.nombre
+            nodoOption.setAttributeNode(atributo)
+            selectOrigen.appendChild(nodoOption)
+            nodoOption = document.createElement("option")
+            nodoOption.innerText = elemento.nombre
+            atributo = document.createAttribute("value")
+            atributo.value = elemento.nombre
+            nodoOption.setAttributeNode(atributo)
+            selectDestino.appendChild(nodoOption)
+        })
+    })
 
 for(let i = 1; i <= 4; i++){
     nodoOption = document.createElement("option")
@@ -103,7 +105,7 @@ btnBuscar.addEventListener("click", e => {
     })
 
     setTimeout(() => {
-        window.open("../html/reserva.html")
+        window.open("/html/reserva.html")
     }, 2000)
 
     localStorage.clear()

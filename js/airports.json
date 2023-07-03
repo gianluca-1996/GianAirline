@@ -1,0 +1,26 @@
+[
+    {
+        "nombre": "BARILOCHE",
+        "tarifaBase": 15000
+    },
+    {
+        "nombre": "EZEIZA",
+        "tarifaBase": 7000
+    },
+    {
+        "nombre": "JORGE NEWBERY",
+        "tarifaBase": 8000
+    },
+    {
+        "nombre": "CATARATAS DEL IGUAZÚ",
+        "tarifaBase": 6000
+    },
+    {
+        "nombre": "EL PALOMAR",
+        "tarifaBase": 5000
+    },
+    {
+        "nombre": "SINGAPUR",
+        "tarifaBase": 25000
+    }
+]
